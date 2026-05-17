@@ -2,6 +2,18 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "functions": {
+    "server.mjs": {
+      "includeFiles": [
+        "index.html",
+        "styles.css",
+        "script.js",
+        "assets/**",
+        "robots.txt",
+        "sitemap.xml"
+      ]
+    }
+  },
   "rewrites": [
     {
       "source": "/zh-hant",
