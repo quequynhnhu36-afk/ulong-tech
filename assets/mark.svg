@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ulong.tech mark">
+  <rect width="64" height="64" rx="16" fill="#f7f9fb"/>
+  <circle cx="32" cy="32" r="23" fill="#ffffff" stroke="#d6dee8" stroke-width="2"/>
+  <path d="M21 20v19c0 7 4 11 11 11s11-4 11-11V20h-6v19c0 4-2 6-5 6s-5-2-5-6V20z" fill="#0b0d10"/>
+  <path d="M46 17l5-5M18 47l-5 5" stroke="#1473e6" stroke-width="3" stroke-linecap="round"/>
+</svg>
