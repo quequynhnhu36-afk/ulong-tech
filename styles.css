@@ -308,7 +308,7 @@ h3 {
 .section-lead h2,
 .capability h2,
 .contact h2,
-.compliance h2 {
+.process h2 {
   margin-bottom: 24px;
 }
 
@@ -316,7 +316,7 @@ h3 {
 .capability p,
 .feature-grid p,
 .trade-grid p,
-.compliance p {
+.process p {
   color: var(--muted);
   font-size: 18px;
   line-height: 1.5;
@@ -344,16 +344,131 @@ h3 {
 
 .feature-grid article,
 .trade-grid article {
+  position: relative;
+  display: flex;
   min-height: 290px;
   padding: clamp(24px, 3vw, 36px);
+  flex-direction: column;
   background: rgba(255, 255, 255, .76);
+  overflow: hidden;
+}
+
+.feature-grid article::before {
+  position: absolute;
+  inset: auto 22px 22px auto;
+  width: 118px;
+  height: 118px;
+  content: "";
+  border: 1px solid rgba(139, 150, 164, .16);
+  border-radius: 50%;
+}
+
+.pillar-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 86px;
 }
 
 .feature-grid span {
-  display: inline-block;
-  margin-bottom: 80px;
+  display: inline-flex;
+  align-items: center;
   color: var(--soft);
   font-size: 13px;
+  font-weight: 700;
+}
+
+.pillar-icon {
+  position: relative;
+  width: 116px;
+  height: 62px;
+  opacity: .82;
+}
+
+.pillar-icon::before,
+.pillar-icon::after {
+  position: absolute;
+  content: "";
+}
+
+.icon-platform::before {
+  left: 8px;
+  right: 8px;
+  top: 28px;
+  height: 1px;
+  background: #aab6c2;
+}
+
+.icon-platform::after {
+  left: 28px;
+  top: 10px;
+  width: 60px;
+  height: 34px;
+  border: 1px solid #aab6c2;
+  border-radius: 50% 50% 42% 42%;
+  transform: skewX(-16deg);
+}
+
+.icon-components {
+  display: grid;
+  grid-template-columns: repeat(3, 22px);
+  gap: 8px;
+  justify-content: end;
+  align-content: center;
+}
+
+.icon-components::before {
+  width: 76px;
+  height: 1px;
+  right: 0;
+  top: 31px;
+  background: #aab6c2;
+}
+
+.icon-components span,
+.icon-components::after {
+  display: none;
+}
+
+.icon-components {
+  background:
+    radial-gradient(circle at 22px 31px, #1473e6 0 4px, transparent 5px),
+    radial-gradient(circle at 58px 31px, #ffffff 0 5px, #1473e6 5px 7px, transparent 8px),
+    radial-gradient(circle at 94px 31px, #ffffff 0 5px, #1473e6 5px 7px, transparent 8px);
+}
+
+.icon-trade::before {
+  left: 8px;
+  right: 8px;
+  top: 35px;
+  height: 1px;
+  background: #aab6c2;
+}
+
+.icon-trade::after {
+  right: 8px;
+  top: 12px;
+  width: 82px;
+  height: 38px;
+  border-top: 1px dashed #1473e6;
+  border-radius: 50%;
+}
+
+.pillar-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 28px;
+}
+
+.pillar-tags span {
+  padding: 6px 9px;
+  border: 1px solid rgba(207, 215, 226, .92);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .72);
+  color: #566272;
+  font-size: 11px;
   font-weight: 700;
 }
 
@@ -491,29 +606,47 @@ h3 {
   min-height: 250px;
 }
 
-.compliance {
+.process {
   width: 100%;
   max-width: none;
   margin-top: 58px;
   padding-inline: max(22px, calc((100vw - var(--max)) / 2));
   background:
-    linear-gradient(90deg, rgba(10, 13, 18, .92), rgba(18, 25, 34, .86)),
-    url("/assets/hero-uav.png");
-  background-size: cover;
-  background-position: center;
-  color: #fff;
+    linear-gradient(180deg, rgba(255, 255, 255, .92), rgba(244, 248, 252, .82)),
+    linear-gradient(90deg, rgba(20, 115, 230, .08), transparent 58%);
+  border-block: 1px solid var(--line);
 }
 
 .compliance-copy {
-  max-width: 680px;
+  max-width: 900px;
 }
 
-.compliance .eyebrow {
-  color: #8dc8ff;
+.process h2 {
+  max-width: 720px;
 }
 
-.compliance p {
-  color: rgba(255, 255, 255, .72);
+.process p {
+  max-width: 760px;
+  color: var(--muted);
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  max-width: 900px;
+  margin-top: 34px;
+  border: 1px solid var(--line);
+  background: var(--line);
+}
+
+.process-steps span {
+  padding: 16px 18px;
+  background: rgba(255, 255, 255, .68);
+  color: #44505d;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .contact {
@@ -720,8 +853,13 @@ h3 {
     min-height: auto;
   }
 
-  .feature-grid span {
-    margin-bottom: 42px;
+  .pillar-head {
+    min-height: 76px;
+  }
+
+  .pillar-icon {
+    transform: scale(.86);
+    transform-origin: top right;
   }
 
   .capability-list div {
@@ -749,6 +887,10 @@ h3 {
 
   .site-footer {
     flex-direction: column;
+  }
+
+  .process-steps {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
