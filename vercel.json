@@ -4,14 +4,7 @@
   "trailingSlash": false,
   "functions": {
     "server.mjs": {
-      "includeFiles": [
-        "index.html",
-        "styles.css",
-        "script.js",
-        "assets/**",
-        "robots.txt",
-        "sitemap.xml"
-      ]
+      "includeFiles": "**"
     }
   },
   "rewrites": [
