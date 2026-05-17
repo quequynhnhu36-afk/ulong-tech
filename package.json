@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "main": "server.mjs",
   "scripts": {
-    "build": "rm -rf public && mkdir -p public && cp -R index.html styles.css script.js assets robots.txt sitemap.xml public/",
-    "dev": "python3 -m http.server 4173"
+    "dev": "node server.mjs",
+    "check": "node --check server.mjs && node --check script.js"
   }
 }
