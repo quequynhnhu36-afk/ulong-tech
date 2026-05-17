@@ -9,16 +9,64 @@
   },
   "rewrites": [
     {
+      "source": "/products",
+      "destination": "/products.html"
+    },
+    {
+      "source": "/trade",
+      "destination": "/trade.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    },
+    {
       "source": "/zh-hant",
       "destination": "/index.html"
+    },
+    {
+      "source": "/zh-hant/products",
+      "destination": "/products.html"
+    },
+    {
+      "source": "/zh-hant/trade",
+      "destination": "/trade.html"
+    },
+    {
+      "source": "/zh-hant/contact",
+      "destination": "/contact.html"
     },
     {
       "source": "/tr",
       "destination": "/index.html"
     },
     {
+      "source": "/tr/products",
+      "destination": "/products.html"
+    },
+    {
+      "source": "/tr/trade",
+      "destination": "/trade.html"
+    },
+    {
+      "source": "/tr/contact",
+      "destination": "/contact.html"
+    },
+    {
       "source": "/ms",
       "destination": "/index.html"
+    },
+    {
+      "source": "/ms/products",
+      "destination": "/products.html"
+    },
+    {
+      "source": "/ms/trade",
+      "destination": "/trade.html"
+    },
+    {
+      "source": "/ms/contact",
+      "destination": "/contact.html"
     }
   ],
   "headers": [

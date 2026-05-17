@@ -4,12 +4,48 @@
     <loc>https://ulong.tech/</loc>
   </url>
   <url>
+    <loc>https://ulong.tech/products</loc>
+  </url>
+  <url>
+    <loc>https://ulong.tech/trade</loc>
+  </url>
+  <url>
+    <loc>https://ulong.tech/contact</loc>
+  </url>
+  <url>
     <loc>https://ulong.tech/zh-hant</loc>
+  </url>
+  <url>
+    <loc>https://ulong.tech/zh-hant/products</loc>
+  </url>
+  <url>
+    <loc>https://ulong.tech/zh-hant/trade</loc>
+  </url>
+  <url>
+    <loc>https://ulong.tech/zh-hant/contact</loc>
   </url>
   <url>
     <loc>https://ulong.tech/tr</loc>
   </url>
   <url>
+    <loc>https://ulong.tech/tr/products</loc>
+  </url>
+  <url>
+    <loc>https://ulong.tech/tr/trade</loc>
+  </url>
+  <url>
+    <loc>https://ulong.tech/tr/contact</loc>
+  </url>
+  <url>
     <loc>https://ulong.tech/ms</loc>
+  </url>
+  <url>
+    <loc>https://ulong.tech/ms/products</loc>
+  </url>
+  <url>
+    <loc>https://ulong.tech/ms/trade</loc>
+  </url>
+  <url>
+    <loc>https://ulong.tech/ms/contact</loc>
   </url>
 </urlset>

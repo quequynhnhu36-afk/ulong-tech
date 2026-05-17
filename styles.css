@@ -141,7 +141,7 @@ a {
   z-index: -1;
   background-image:
     linear-gradient(90deg, rgba(247, 249, 251, .98) 0%, rgba(247, 249, 251, .84) 34%, rgba(247, 249, 251, .24) 62%, rgba(247, 249, 251, .08) 100%),
-    url("assets/hero-uav.png");
+    url("/assets/hero-uav.png");
   background-size: cover;
   background-position: center right;
   transform: scale(1.01);
@@ -266,6 +266,29 @@ h3 {
   padding: clamp(74px, 10vw, 132px) 0;
 }
 
+.page-main {
+  padding-top: 72px;
+}
+
+.subpage-hero {
+  width: min(var(--max), calc(100% - 44px));
+  margin: 0 auto;
+  padding: clamp(96px, 13vw, 164px) 0 clamp(54px, 8vw, 92px);
+}
+
+.subpage-hero h1 {
+  max-width: 920px;
+  margin-bottom: 24px;
+  font-size: clamp(48px, 7vw, 92px);
+}
+
+.subpage-hero p:not(.eyebrow) {
+  max-width: 760px;
+  color: var(--muted);
+  font-size: clamp(20px, 2.5vw, 28px);
+  line-height: 1.28;
+}
+
 .section-intro {
   padding-top: clamp(28px, 5vw, 48px);
 }
@@ -292,7 +315,7 @@ h3 {
 .section-lead p,
 .capability p,
 .feature-grid p,
-.region-grid p,
+.trade-grid p,
 .compliance p {
   color: var(--muted);
   font-size: 18px;
@@ -306,7 +329,7 @@ h3 {
 }
 
 .feature-grid,
-.region-grid {
+.trade-grid {
   display: grid;
   width: min(var(--max), calc(100% - 44px));
   margin: 0 auto;
@@ -320,7 +343,7 @@ h3 {
 }
 
 .feature-grid article,
-.region-grid article {
+.trade-grid article {
   min-height: 290px;
   padding: clamp(24px, 3vw, 36px);
   background: rgba(255, 255, 255, .76);
@@ -335,7 +358,7 @@ h3 {
 }
 
 .feature-grid h3,
-.region-grid h3 {
+.trade-grid h3 {
   margin-bottom: 14px;
 }
 
@@ -367,8 +390,43 @@ h3 {
   margin-bottom: 10px;
 }
 
+.product-catalog {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--line);
+  background: var(--line);
+}
+
+.product-catalog article {
+  min-height: 230px;
+  padding: clamp(26px, 3vw, 38px);
+  background: rgba(255, 255, 255, .78);
+}
+
+.product-catalog article:last-child {
+  grid-column: 1 / -1;
+}
+
+.product-catalog h2 {
+  margin-bottom: 14px;
+  font-size: clamp(28px, 3.6vw, 48px);
+  line-height: 1.02;
+}
+
+.product-catalog p {
+  max-width: 620px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.5;
+}
+
 .global {
   padding-bottom: 44px;
+}
+
+.subpage-section {
+  padding-top: 0;
 }
 
 .compact {
@@ -376,11 +434,60 @@ h3 {
   margin-top: 18px;
 }
 
-.region-grid {
+.trade-map-card {
+  width: min(var(--max), calc(100% - 44px));
+  margin: 0 auto 1px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .9), rgba(244, 248, 252, .76)),
+    linear-gradient(90deg, rgba(20, 115, 230, .04), transparent 52%);
+  overflow: hidden;
+}
+
+.trade-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 260px;
+}
+
+.map-shape {
+  fill: rgba(227, 235, 244, .72);
+  stroke: rgba(139, 150, 164, .42);
+  stroke-width: 1.2;
+}
+
+.map-grid {
+  fill: none;
+  stroke: rgba(139, 150, 164, .2);
+  stroke-width: 1;
+}
+
+.trade-route {
+  fill: none;
+  stroke: url("#mapLine");
+  stroke-linecap: round;
+  stroke-width: 2.2;
+  stroke-dasharray: 7 10;
+}
+
+.trade-node {
+  fill: #fff;
+  stroke: #1473e6;
+  stroke-width: 2;
+}
+
+.node-primary {
+  fill: #1473e6;
+  stroke: #fff;
+  stroke-width: 3;
+}
+
+.trade-grid {
   grid-template-columns: repeat(4, 1fr);
 }
 
-.region-grid article {
+.trade-grid article {
   min-height: 250px;
 }
 
@@ -391,7 +498,7 @@ h3 {
   padding-inline: max(22px, calc((100vw - var(--max)) / 2));
   background:
     linear-gradient(90deg, rgba(10, 13, 18, .92), rgba(18, 25, 34, .86)),
-    url("assets/hero-uav.png");
+    url("/assets/hero-uav.png");
   background-size: cover;
   background-position: center;
   color: #fff;
@@ -421,6 +528,10 @@ h3 {
 
 .contact h2 {
   max-width: 680px;
+}
+
+.contact-page {
+  padding-top: 28px;
 }
 
 .legal-name {
@@ -504,7 +615,7 @@ h3 {
   .hero-media {
     background-image:
       linear-gradient(180deg, rgba(247, 249, 251, .95) 0%, rgba(247, 249, 251, .68) 42%, rgba(247, 249, 251, .96) 100%),
-      url("assets/hero-uav.png");
+      url("/assets/hero-uav.png");
     background-size: auto 72%, auto 72%;
     background-position: center top 58px;
     background-repeat: no-repeat;
@@ -516,12 +627,17 @@ h3 {
 
   .section-intro,
   .capability-layout,
-  .contact {
+  .contact,
+  .product-catalog {
     grid-template-columns: 1fr;
   }
 
+  .product-catalog article:last-child {
+    grid-column: auto;
+  }
+
   .feature-grid,
-  .region-grid {
+  .trade-grid {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -546,8 +662,35 @@ h3 {
   }
 
   .hero {
-    min-height: 760px;
-    padding: 92px 18px 48px;
+    display: flex;
+    min-height: 0;
+    padding: 84px 18px 52px;
+    flex-direction: column;
+  }
+
+  .hero-media {
+    position: relative;
+    inset: auto;
+    z-index: 0;
+    height: clamp(230px, 74vw, 320px);
+    margin: 0 -18px 28px;
+    background-image:
+      linear-gradient(180deg, rgba(247, 249, 251, .04), rgba(247, 249, 251, .86) 92%),
+      url("/assets/hero-uav.png");
+    background-size: auto 112%;
+    background-position: center top;
+    background-repeat: no-repeat;
+    animation: none;
+    transform: none;
+  }
+
+  .hero-copy {
+    align-self: auto;
+    padding-bottom: 0;
+  }
+
+  .page-main {
+    padding-top: 64px;
   }
 
   h1 {
@@ -560,19 +703,20 @@ h3 {
 
   .section,
   .feature-grid,
-  .region-grid,
+  .trade-grid,
+  .trade-map-card,
   .contact,
   .site-footer {
     width: calc(100% - 36px);
   }
 
   .feature-grid,
-  .region-grid {
+  .trade-grid {
     grid-template-columns: 1fr;
   }
 
   .feature-grid article,
-  .region-grid article {
+  .trade-grid article {
     min-height: auto;
   }
 
@@ -582,6 +726,18 @@ h3 {
 
   .capability-list div {
     padding: 24px;
+  }
+
+  .subpage-hero {
+    padding: 72px 0 48px;
+  }
+
+  .subpage-hero h1 {
+    font-size: clamp(42px, 14vw, 68px);
+  }
+
+  .subpage-hero p:not(.eyebrow) {
+    font-size: 19px;
   }
 
   .contact-actions,
@@ -601,10 +757,10 @@ h3 {
     animation: settle 900ms ease-out both;
   }
 
-  .hero-copy,
   .section,
   .feature-grid,
-  .region-grid,
+  .trade-grid,
+  .trade-map-card,
   .contact {
     animation: rise 700ms ease-out both;
   }
