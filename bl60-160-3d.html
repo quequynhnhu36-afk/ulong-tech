@@ -1,0 +1,1081 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BL60-160 3D Feasibility | Ulong Technology</title>
+    <meta name="description" content="Interactive BL60-160 UAV reference model and 3D feasibility review.">
+    <meta name="theme-color" content="#eef3f7">
+    <link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #0c1117;
+        --muted: #566372;
+        --soft: #8a96a4;
+        --line: #dbe3ec;
+        --paper: #eef3f7;
+        --white: #ffffff;
+        --blue: #1473e6;
+        --blue-dark: #0757b8;
+        --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+        --font-text: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-width: 320px;
+        min-height: 100%;
+        margin: 0;
+      }
+
+      body {
+        overflow-x: hidden;
+        background:
+          linear-gradient(180deg, #f8fbfd 0%, #edf3f7 58%, #ffffff 100%);
+        color: var(--ink);
+        font-family: var(--font-text);
+        letter-spacing: 0;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: geometricPrecision;
+      }
+
+      button,
+      a {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .site-shell {
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 24px;
+        min-height: 68px;
+        padding: 0 clamp(18px, 4vw, 48px);
+        border-bottom: 1px solid rgba(208, 218, 228, .72);
+        background: rgba(248, 251, 253, .82);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        width: max-content;
+        font-family: var(--font-display);
+        font-size: 15px;
+        font-weight: 680;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 28px;
+        height: 28px;
+        place-items: center;
+        border: 1px solid #cfd7e2;
+        border-radius: 50%;
+        background: var(--white);
+        color: #111821;
+        font-size: 14px;
+        box-shadow: 0 8px 24px rgba(32, 45, 62, .08);
+      }
+
+      .page-title {
+        margin: 0;
+        color: #27313d;
+        font-family: var(--font-display);
+        font-size: 15px;
+        font-weight: 660;
+        text-align: center;
+      }
+
+      .topbar-actions {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .link-button {
+        min-height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 9px 15px;
+        border: 1px solid rgba(12, 18, 26, .13);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, .72);
+        color: #202a36;
+        font-size: 13px;
+        font-weight: 650;
+      }
+
+      .workspace {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+        height: calc(100vh - 68px);
+        min-height: 640px;
+      }
+
+      .viewer {
+        position: relative;
+        min-height: 0;
+        overflow: hidden;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, .78), rgba(238, 243, 247, .4)),
+          linear-gradient(90deg, rgba(255,255,255,.86), rgba(241,246,250,.52));
+      }
+
+      #model-canvas {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+      }
+
+      .model-caption {
+        position: absolute;
+        left: clamp(20px, 4vw, 54px);
+        top: clamp(22px, 4vw, 54px);
+        width: min(430px, calc(100% - 40px));
+        pointer-events: none;
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--blue);
+        font-size: 12px;
+        font-weight: 780;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 440px;
+        margin: 0 0 14px;
+        font-family: var(--font-display);
+        font-size: clamp(42px, 6vw, 78px);
+        line-height: .96;
+        letter-spacing: 0;
+        font-weight: 740;
+      }
+
+      .model-caption p {
+        max-width: 390px;
+        margin: 0;
+        color: #34404d;
+        font-size: clamp(16px, 1.4vw, 18px);
+        line-height: 1.48;
+      }
+
+      .view-controls {
+        position: absolute;
+        left: clamp(18px, 4vw, 48px);
+        bottom: clamp(18px, 4vw, 42px);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        max-width: calc(100% - 36px);
+      }
+
+      .view-controls button,
+      .thumb {
+        border: 1px solid rgba(13, 19, 27, .13);
+        background: rgba(255, 255, 255, .74);
+        color: #18212c;
+        font: inherit;
+        cursor: pointer;
+        transition: border-color .2s ease, background .2s ease, transform .2s ease;
+      }
+
+      .view-controls button {
+        min-height: 38px;
+        padding: 9px 13px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 680;
+      }
+
+      .view-controls button:hover,
+      .thumb:hover,
+      .thumb[aria-current="true"] {
+        border-color: rgba(20, 115, 230, .54);
+        background: rgba(255, 255, 255, .96);
+      }
+
+      .view-controls button:active,
+      .thumb:active {
+        transform: translateY(1px);
+      }
+
+      .model-state {
+        position: absolute;
+        right: clamp(18px, 4vw, 42px);
+        bottom: clamp(18px, 4vw, 42px);
+        min-width: 130px;
+        border: 1px solid rgba(13, 19, 27, .1);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, .76);
+        padding: 12px 14px;
+        color: #26313d;
+        font-size: 12px;
+        font-weight: 680;
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+      }
+
+      .side-panel {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        min-height: 0;
+        border-left: 1px solid rgba(208, 218, 228, .86);
+        background: rgba(255, 255, 255, .72);
+      }
+
+      .reference-preview {
+        padding: 20px 20px 16px;
+        border-bottom: 1px solid rgba(208, 218, 228, .82);
+      }
+
+      .reference-preview img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        display: block;
+        object-fit: contain;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .preview-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 650;
+      }
+
+      .preview-meta a {
+        color: var(--blue);
+      }
+
+      .panel-scroll {
+        min-height: 0;
+        overflow: auto;
+        padding: 20px;
+      }
+
+      .panel-section + .panel-section {
+        margin-top: 24px;
+        padding-top: 22px;
+        border-top: 1px solid rgba(208, 218, 228, .82);
+      }
+
+      .panel-section h2 {
+        margin: 0 0 10px;
+        font-family: var(--font-display);
+        font-size: 18px;
+        line-height: 1.18;
+        letter-spacing: 0;
+      }
+
+      .panel-section p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.52;
+      }
+
+      .signal-list {
+        display: grid;
+        gap: 10px;
+        margin: 14px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .signal-list li {
+        display: grid;
+        grid-template-columns: 10px 1fr;
+        gap: 10px;
+        align-items: start;
+        color: #313c49;
+        font-size: 13px;
+        line-height: 1.42;
+      }
+
+      .signal-list li::before {
+        width: 7px;
+        height: 7px;
+        margin-top: 5px;
+        border-radius: 50%;
+        background: var(--blue);
+        content: "";
+      }
+
+      .thumb-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .thumb {
+        display: grid;
+        gap: 6px;
+        padding: 6px;
+        border-radius: 8px;
+        text-align: left;
+      }
+
+      .thumb img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        display: block;
+        object-fit: contain;
+        background: #fff;
+        border-radius: 5px;
+      }
+
+      .thumb span {
+        color: #465362;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      @media (max-width: 980px) {
+        .topbar {
+          grid-template-columns: 1fr auto;
+        }
+
+        .page-title {
+          display: none;
+        }
+
+        .workspace {
+          grid-template-columns: 1fr;
+          height: auto;
+          min-height: 0;
+        }
+
+        .viewer {
+          min-height: min(760px, calc(100vh - 68px));
+        }
+
+        .side-panel {
+          border-left: 0;
+          border-top: 1px solid rgba(208, 218, 228, .86);
+        }
+
+        .panel-scroll {
+          overflow: visible;
+        }
+      }
+
+      @media (max-width: 620px) {
+        .topbar {
+          min-height: 62px;
+          gap: 12px;
+          padding-inline: 16px;
+        }
+
+        .brand span:last-child {
+          display: none;
+        }
+
+        .link-button {
+          min-height: 36px;
+          padding-inline: 12px;
+        }
+
+        .viewer {
+          min-height: 620px;
+        }
+
+        .model-caption {
+          top: 20px;
+          left: 18px;
+        }
+
+        .model-caption p {
+          max-width: 300px;
+          font-size: 15px;
+        }
+
+        h1 {
+          max-width: 300px;
+          font-size: 43px;
+        }
+
+        .view-controls {
+          left: 16px;
+          right: 16px;
+          bottom: 16px;
+        }
+
+        .model-state {
+          right: 16px;
+          bottom: 112px;
+        }
+
+        .thumb-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="/products" aria-label="Ulong Technology products">
+          <span class="brand-mark">U</span>
+          <span>Ulong Technology</span>
+        </a>
+        <p class="page-title">BL60-160 reference modeling study</p>
+        <div class="topbar-actions">
+          <a class="link-button" href="/products">Products</a>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="viewer" aria-label="Interactive BL60-160 model">
+          <canvas id="model-canvas"></canvas>
+          <div class="model-caption">
+            <p class="eyebrow">BL60-160</p>
+            <h1>VTOL UAV model study.</h1>
+            <p>Presentation-grade 3D reconstruction from the extracted render views, focused on silhouette, major components, and product-page interaction.</p>
+          </div>
+          <div class="view-controls" aria-label="View presets">
+            <button type="button" data-view="iso">ISO</button>
+            <button type="button" data-view="top">Top</button>
+            <button type="button" data-view="side">Side</button>
+            <button type="button" data-view="front">Front</button>
+            <button type="button" data-view="rear">Rear</button>
+            <button type="button" data-spin-toggle>Spin</button>
+          </div>
+          <div class="model-state" data-model-state>Loading model</div>
+        </section>
+
+        <aside class="side-panel" aria-label="Reference images and feasibility">
+          <div class="reference-preview">
+            <img id="reference-preview" src="/assets/bl60-160/previews/11.jpg" alt="BL60-160 reference render" decoding="async">
+            <div class="preview-meta">
+              <span id="reference-name">11.png</span>
+              <a id="reference-full" href="/assets/bl60-160/11.png" target="_blank" rel="noreferrer">Original</a>
+            </div>
+          </div>
+
+          <div class="panel-scroll">
+            <section class="panel-section">
+              <h2>Feasibility</h2>
+              <p>The image set is strong enough for a web-ready approximation. A CAD-grade or manufacturing-accurate mesh still needs orthographic drawings, dimensions, and detail close-ups.</p>
+              <ul class="signal-list">
+                <li>20 high-resolution PNG renders extracted from the zip.</li>
+                <li>Top, side, front, rear, underside, and oblique views are covered.</li>
+                <li>Main risks are hidden surfaces, exact airfoil sections, gimbal bracket detail, and panel-line accuracy.</li>
+              </ul>
+            </section>
+
+            <section class="panel-section">
+              <h2>Reference Views</h2>
+              <div class="thumb-grid" id="thumb-grid"></div>
+            </section>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.165.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.165.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module">
+      import * as THREE from "three";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+      const canvas = document.querySelector("#model-canvas");
+      const status = document.querySelector("[data-model-state]");
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xf2f6f9);
+
+      const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+      camera.position.set(9.2, 5.2, 9.8);
+
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        alpha: false,
+        powerPreference: "high-performance"
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.02;
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.07;
+      controls.target.set(0, 0.02, 0);
+      controls.minDistance = 5.6;
+      controls.maxDistance = 18;
+      controls.maxPolarAngle = Math.PI * 0.88;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.55;
+
+      const bodyMat = new THREE.MeshPhysicalMaterial({
+        color: 0xdce4e9,
+        roughness: 0.44,
+        metalness: 0.01,
+        clearcoat: 0.22,
+        clearcoatRoughness: 0.55
+      });
+
+      const undersideMat = new THREE.MeshPhysicalMaterial({
+        color: 0xcfd8df,
+        roughness: 0.52,
+        metalness: 0.02,
+        clearcoat: 0.12
+      });
+
+      const carbonTexture = createCarbonTexture();
+      const carbonMat = new THREE.MeshStandardMaterial({
+        color: 0x0c0d0f,
+        roughness: 0.62,
+        metalness: 0.12,
+        map: carbonTexture
+      });
+
+      const darkMat = new THREE.MeshStandardMaterial({
+        color: 0x20252b,
+        roughness: 0.5,
+        metalness: 0.18
+      });
+
+      const metalMat = new THREE.MeshStandardMaterial({
+        color: 0xa8b0b6,
+        roughness: 0.36,
+        metalness: 0.24
+      });
+
+      const lineMat = new THREE.LineBasicMaterial({
+        color: 0x6d7884,
+        transparent: true,
+        opacity: 0.55
+      });
+
+      const glassBlue = new THREE.MeshPhysicalMaterial({
+        color: 0x225ee8,
+        emissive: 0x112a82,
+        emissiveIntensity: 0.18,
+        roughness: 0.06,
+        metalness: 0,
+        clearcoat: 1,
+        clearcoatRoughness: 0.02
+      });
+
+      const model = new THREE.Group();
+      model.name = "BL60-160 reference model";
+      model.scale.setScalar(0.7);
+      model.position.y = 0.16;
+      scene.add(model);
+
+      buildModel(model);
+      addEnvironment();
+      setView("iso", false);
+
+      const refs = [
+        "01.png", "02.png", "03.png", "04.png", "05.png", "06.png",
+        "07.png", "08.png", "09.png", "10.png", "11.png", "12.png",
+        "20.png", "21.png", "22.png", "24.png", "25.png", "26.png",
+        "27.png", "28.png"
+      ];
+
+      const preview = document.querySelector("#reference-preview");
+      const referenceName = document.querySelector("#reference-name");
+      const referenceFull = document.querySelector("#reference-full");
+      const thumbGrid = document.querySelector("#thumb-grid");
+
+      refs.forEach((name) => {
+        const button = document.createElement("button");
+        button.className = "thumb";
+        button.type = "button";
+        button.setAttribute("aria-label", `Show ${name}`);
+        const stem = name.replace(".png", "");
+        button.innerHTML = `<img src="/assets/bl60-160/thumbs/${stem}.jpg" alt="" loading="lazy" decoding="async"><span>${name}</span>`;
+        if (name === "11.png") button.setAttribute("aria-current", "true");
+        button.addEventListener("click", () => {
+          preview.src = `/assets/bl60-160/previews/${stem}.jpg`;
+          referenceFull.href = `/assets/bl60-160/${name}`;
+          referenceName.textContent = name;
+          thumbGrid.querySelectorAll(".thumb").forEach((thumb) => thumb.removeAttribute("aria-current"));
+          button.setAttribute("aria-current", "true");
+        });
+        thumbGrid.appendChild(button);
+      });
+
+      document.querySelectorAll("[data-view]").forEach((button) => {
+        button.addEventListener("click", () => setView(button.dataset.view, true));
+      });
+
+      document.querySelector("[data-spin-toggle]").addEventListener("click", (event) => {
+        controls.autoRotate = !controls.autoRotate;
+        event.currentTarget.textContent = controls.autoRotate ? "Spin" : "Still";
+        status.textContent = controls.autoRotate ? "Auto spin" : "Manual view";
+      });
+
+      window.addEventListener("resize", resize);
+      resize();
+      status.textContent = "Model ready";
+      animate();
+
+      function buildModel(root) {
+        const fuselage = makeFuselage();
+        root.add(fuselage);
+
+        const lowerPod = new THREE.Mesh(new THREE.SphereGeometry(0.34, 36, 24), undersideMat);
+        lowerPod.scale.set(1.35, 0.45, 0.78);
+        lowerPod.position.set(1.35, -0.38, 0);
+        lowerPod.castShadow = true;
+        lowerPod.receiveShadow = true;
+        root.add(lowerPod);
+
+        const wingLeft = makeWing(1, bodyMat);
+        const wingRight = makeWing(-1, bodyMat);
+        root.add(wingLeft, wingRight);
+
+        const fairing = new THREE.Mesh(new THREE.SphereGeometry(0.46, 36, 18), bodyMat);
+        fairing.scale.set(1.48, 0.34, 1.1);
+        fairing.position.set(-0.55, 0.04, 0);
+        fairing.castShadow = true;
+        fairing.receiveShadow = true;
+        root.add(fairing);
+
+        root.add(makeHorizontalTail(1), makeHorizontalTail(-1), makeVerticalTail());
+        root.add(makeCameraPod());
+        root.add(makeLandingSkid(1), makeLandingSkid(-1));
+
+        [-1, 1].forEach((side) => {
+          root.add(makeMotorAssembly(side, -1.22, 2.55));
+          root.add(makeWingStruts(side));
+        });
+
+        addPanelLines(root);
+        addHatches(root);
+      }
+
+      function makeFuselage() {
+        const profile = [
+          [0.02, -3.2],
+          [0.18, -3.05],
+          [0.34, -2.74],
+          [0.46, -2.1],
+          [0.55, -0.9],
+          [0.58, 0.7],
+          [0.5, 1.85],
+          [0.36, 2.55],
+          [0.15, 2.98],
+          [0.02, 3.14]
+        ].map(([radius, length]) => new THREE.Vector2(radius, length));
+
+        const geometry = new THREE.LatheGeometry(profile, 72);
+        geometry.rotateZ(-Math.PI / 2);
+        geometry.computeVertexNormals();
+        const mesh = new THREE.Mesh(geometry, bodyMat);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        return mesh;
+      }
+
+      function makeWing(side, material) {
+        const rootZ = 0.22 * side;
+        const tipZ = 3.78 * side;
+        const yRootTop = 0.045;
+        const yTipTop = 0.13;
+        const thickness = 0.055;
+        const vertices = new Float32Array([
+          0.62, yRootTop, rootZ,
+          -1.46, yRootTop, rootZ,
+          -1.88, yTipTop, tipZ,
+          0.08, yTipTop, tipZ,
+          0.62, yRootTop - thickness, rootZ,
+          -1.46, yRootTop - thickness, rootZ,
+          -1.88, yTipTop - thickness, tipZ,
+          0.08, yTipTop - thickness, tipZ
+        ]);
+        const indices = [
+          0, 1, 2, 0, 2, 3,
+          4, 6, 5, 4, 7, 6,
+          0, 4, 5, 0, 5, 1,
+          1, 5, 6, 1, 6, 2,
+          2, 6, 7, 2, 7, 3,
+          3, 7, 4, 3, 4, 0
+        ];
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
+        geometry.setIndex(indices);
+        geometry.computeVertexNormals();
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        return mesh;
+      }
+
+      function makeHorizontalTail(side) {
+        const rootZ = 0.12 * side;
+        const tipZ = 1.25 * side;
+        const y = 0.18;
+        const geometry = makePlanformGeometry([
+          [-2.36, y, rootZ],
+          [-3.12, y, rootZ],
+          [-3.25, y + 0.02, tipZ],
+          [-2.52, y + 0.02, tipZ]
+        ], 0.045);
+        const mesh = new THREE.Mesh(geometry, bodyMat);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        return mesh;
+      }
+
+      function makeVerticalTail() {
+        const vertices = new Float32Array([
+          -2.42, 0.19, -0.045,
+          -3.05, 0.18, -0.045,
+          -2.84, 1.42, -0.045,
+          -2.28, 1.34, -0.045,
+          -2.42, 0.19, 0.045,
+          -3.05, 0.18, 0.045,
+          -2.84, 1.42, 0.045,
+          -2.28, 1.34, 0.045
+        ]);
+        const indices = [
+          0, 1, 2, 0, 2, 3,
+          4, 6, 5, 4, 7, 6,
+          0, 4, 5, 0, 5, 1,
+          1, 5, 6, 1, 6, 2,
+          2, 6, 7, 2, 7, 3,
+          3, 7, 4, 3, 4, 0
+        ];
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
+        geometry.setIndex(indices);
+        geometry.computeVertexNormals();
+        const mesh = new THREE.Mesh(geometry, bodyMat);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        return mesh;
+      }
+
+      function makePlanformGeometry(points, thickness) {
+        const top = points.flat();
+        const bottom = points.map(([x, y, z]) => [x, y - thickness, z]).flat();
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array([...top, ...bottom]), 3));
+        geometry.setIndex([
+          0, 1, 2, 0, 2, 3,
+          4, 6, 5, 4, 7, 6,
+          0, 4, 5, 0, 5, 1,
+          1, 5, 6, 1, 6, 2,
+          2, 6, 7, 2, 7, 3,
+          3, 7, 4, 3, 4, 0
+        ]);
+        geometry.computeVertexNormals();
+        return geometry;
+      }
+
+      function makeMotorAssembly(side, x, zAbs) {
+        const group = new THREE.Group();
+        const z = zAbs * side;
+
+        const nacelle = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.22, 0.58, 36), bodyMat);
+        nacelle.rotation.z = Math.PI / 2;
+        nacelle.position.set(x, -0.03, z);
+        nacelle.castShadow = true;
+        nacelle.receiveShadow = true;
+        group.add(nacelle);
+
+        const spinner = new THREE.Mesh(new THREE.ConeGeometry(0.17, 0.26, 36), darkMat);
+        spinner.rotation.z = -Math.PI / 2;
+        spinner.position.set(x + 0.36, -0.03, z);
+        spinner.castShadow = true;
+        group.add(spinner);
+
+        const prop = new THREE.Group();
+        const bladeA = makePropBlade();
+        const bladeB = makePropBlade();
+        bladeB.rotation.x = Math.PI / 2;
+        prop.add(bladeA, bladeB);
+        prop.position.set(x + 0.52, -0.03, z);
+        prop.rotation.x = side > 0 ? Math.PI * 0.08 : -Math.PI * 0.08;
+        group.add(prop);
+
+        const mount = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.1, 0.26), metalMat);
+        mount.position.set(x - 0.1, 0.13, z);
+        mount.castShadow = true;
+        mount.receiveShadow = true;
+        group.add(mount);
+
+        return group;
+      }
+
+      function makePropBlade() {
+        const blade = new THREE.Mesh(new THREE.BoxGeometry(0.034, 0.102, 1.02), carbonMat);
+        blade.geometry.translate(0, 0, 0.34);
+        blade.rotation.x = 0.08;
+        blade.castShadow = true;
+        return blade;
+      }
+
+      function makeWingStruts(side) {
+        const group = new THREE.Group();
+        const z = 2.55 * side;
+        group.add(cylinderBetween(new THREE.Vector3(-1.12, -0.16, z - 0.48 * side), new THREE.Vector3(0.15, -0.11, z - 0.92 * side), 0.025, undersideMat));
+        group.add(cylinderBetween(new THREE.Vector3(-1.42, -0.18, z + 0.16 * side), new THREE.Vector3(-2.1, -0.12, z + 0.58 * side), 0.023, undersideMat));
+        group.add(cylinderBetween(new THREE.Vector3(-1.25, 0.04, z), new THREE.Vector3(-1.2, 0.03, z - 0.52 * side), 0.032, undersideMat));
+        return group;
+      }
+
+      function makeCameraPod() {
+        const group = new THREE.Group();
+
+        const pylon = cylinderBetween(new THREE.Vector3(1.58, -0.28, 0), new THREE.Vector3(1.63, -0.62, 0), 0.08, undersideMat);
+        group.add(pylon);
+
+        const yoke = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.28, 0.5), undersideMat);
+        yoke.position.set(1.66, -0.62, 0);
+        yoke.castShadow = true;
+        yoke.receiveShadow = true;
+        group.add(yoke);
+
+        const ball = new THREE.Mesh(new THREE.SphereGeometry(0.34, 48, 32), undersideMat);
+        ball.scale.set(0.88, 1.05, 1.05);
+        ball.position.set(1.82, -0.92, 0);
+        ball.castShadow = true;
+        ball.receiveShadow = true;
+        group.add(ball);
+
+        const lensPositions = [
+          [2.1, -0.84, -0.1, 0.08],
+          [2.105, -0.99, 0.08, 0.125],
+          [2.108, -0.77, 0.12, 0.06]
+        ];
+        lensPositions.forEach(([x, y, z, radius]) => {
+          const ring = new THREE.Mesh(new THREE.CylinderGeometry(radius * 1.18, radius * 1.18, 0.025, 40), darkMat);
+          ring.rotation.z = Math.PI / 2;
+          ring.position.set(x, y, z);
+          group.add(ring);
+
+          const lens = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, 0.03, 40), glassBlue);
+          lens.rotation.z = Math.PI / 2;
+          lens.position.set(x + 0.018, y, z);
+          group.add(lens);
+        });
+
+        return group;
+      }
+
+      function makeLandingSkid(side) {
+        const group = new THREE.Group();
+        const z = 0.48 * side;
+        const rail = cylinderBetween(new THREE.Vector3(0.42, -0.82, z), new THREE.Vector3(1.74, -0.84, z), 0.035, undersideMat);
+        const armA = cylinderBetween(new THREE.Vector3(0.72, -0.34, z), new THREE.Vector3(0.62, -0.82, z), 0.028, undersideMat);
+        const armB = cylinderBetween(new THREE.Vector3(1.46, -0.36, z), new THREE.Vector3(1.52, -0.84, z), 0.028, undersideMat);
+        group.add(rail, armA, armB);
+        return group;
+      }
+
+      function addPanelLines(root) {
+        const lines = [
+          [[-2.6, 0.3, 0.12], [-1.6, 0.48, 0.18], [-0.2, 0.54, 0.2], [1.55, 0.46, 0.16], [2.42, 0.27, 0.08]],
+          [[-2.6, 0.3, -0.12], [-1.6, 0.48, -0.18], [-0.2, 0.54, -0.2], [1.55, 0.46, -0.16], [2.42, 0.27, -0.08]],
+          [[0.3, 0.08, 0.52], [-0.62, 0.12, 1.7], [-1.2, 0.14, 3.18]],
+          [[0.3, 0.08, -0.52], [-0.62, 0.12, -1.7], [-1.2, 0.14, -3.18]]
+        ];
+
+        lines.forEach((pts) => {
+          const geometry = new THREE.BufferGeometry().setFromPoints(pts.map(([x, y, z]) => new THREE.Vector3(x, y, z)));
+          const line = new THREE.Line(geometry, lineMat);
+          root.add(line);
+        });
+      }
+
+      function addHatches(root) {
+        const hatches = [
+          [0.45, 0.56, 0.2, 0.4, 0.035, 0.2],
+          [-0.78, 0.18, 1.15, 0.34, 0.045, 0.2],
+          [-0.78, 0.18, -1.15, 0.34, 0.045, 0.2],
+          [-2.6, 0.58, 0.18, 0.3, 0.045, 0.18],
+          [-2.6, 0.58, -0.18, 0.3, 0.045, 0.18]
+        ];
+
+        hatches.forEach(([x, y, z, sx, sy, sz]) => {
+          const mesh = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), metalMat);
+          mesh.position.set(x, y, z);
+          mesh.castShadow = true;
+          mesh.receiveShadow = true;
+          root.add(mesh);
+        });
+
+        const markMat = new THREE.LineBasicMaterial({ color: 0x3761a8, linewidth: 1 });
+        [["left", -0.13], ["right", 0.13]].forEach(([, z]) => {
+          const geometry = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(0.86, 0.59, z - 0.08),
+            new THREE.Vector3(1.02, 0.62, z + 0.08),
+            new THREE.Vector3(0.86, 0.59, z + 0.08),
+            new THREE.Vector3(1.02, 0.62, z - 0.08)
+          ]);
+          root.add(new THREE.Line(geometry, markMat));
+        });
+      }
+
+      function cylinderBetween(start, end, radius, material) {
+        const direction = new THREE.Vector3().subVectors(end, start);
+        const length = direction.length();
+        const geometry = new THREE.CylinderGeometry(radius, radius, length, 18);
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.copy(start).add(end).multiplyScalar(0.5);
+        mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.normalize());
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        return mesh;
+      }
+
+      function addEnvironment() {
+        scene.add(new THREE.HemisphereLight(0xffffff, 0xcbd4dc, 2.1));
+
+        const key = new THREE.DirectionalLight(0xffffff, 3.6);
+        key.position.set(5, 7, 4);
+        key.castShadow = true;
+        key.shadow.mapSize.set(2048, 2048);
+        key.shadow.camera.near = 0.1;
+        key.shadow.camera.far = 30;
+        key.shadow.camera.left = -8;
+        key.shadow.camera.right = 8;
+        key.shadow.camera.top = 8;
+        key.shadow.camera.bottom = -8;
+        scene.add(key);
+
+        const fill = new THREE.DirectionalLight(0xdbeafe, 1.2);
+        fill.position.set(-4, 2.4, -5);
+        scene.add(fill);
+
+        const floor = new THREE.Mesh(
+          new THREE.PlaneGeometry(18, 18),
+          new THREE.ShadowMaterial({ color: 0x8a96a4, opacity: 0.13 })
+        );
+        floor.rotation.x = -Math.PI / 2;
+        floor.position.y = -1.16;
+        floor.receiveShadow = true;
+        scene.add(floor);
+
+        const grid = new THREE.GridHelper(12, 12, 0xcdd6df, 0xe1e7ee);
+        grid.position.y = -1.15;
+        grid.material.transparent = true;
+        grid.material.opacity = 0.28;
+        scene.add(grid);
+      }
+
+      function createCarbonTexture() {
+        const size = 96;
+        const canvasTexture = document.createElement("canvas");
+        canvasTexture.width = size;
+        canvasTexture.height = size;
+        const ctx = canvasTexture.getContext("2d");
+        ctx.fillStyle = "#08090a";
+        ctx.fillRect(0, 0, size, size);
+        ctx.strokeStyle = "#272a2e";
+        ctx.lineWidth = 5;
+        for (let i = -size; i < size * 2; i += 14) {
+          ctx.beginPath();
+          ctx.moveTo(i, 0);
+          ctx.lineTo(i + size, size);
+          ctx.stroke();
+        }
+        ctx.strokeStyle = "#111315";
+        for (let i = -size; i < size * 2; i += 14) {
+          ctx.beginPath();
+          ctx.moveTo(i + size, 0);
+          ctx.lineTo(i, size);
+          ctx.stroke();
+        }
+        const texture = new THREE.CanvasTexture(canvasTexture);
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+        texture.repeat.set(2.5, 2.5);
+        texture.colorSpace = THREE.SRGBColorSpace;
+        return texture;
+      }
+
+      function setView(name, animateCamera) {
+        const views = {
+          iso: [9.2, 5.2, 9.8],
+          top: [0.02, 10.5, 0.02],
+          side: [10.2, 1.9, 0.02],
+          front: [8.4, 2.05, 0],
+          rear: [-8.4, 2.05, 0]
+        };
+        const next = views[name] || views.iso;
+        const target = new THREE.Vector3(...next);
+        if (!animateCamera) {
+          camera.position.copy(target);
+          controls.target.set(0, 0.02, 0);
+          controls.update();
+          return;
+        }
+        const start = camera.position.clone();
+        const started = performance.now();
+        const duration = 420;
+        function tick(now) {
+          const t = Math.min((now - started) / duration, 1);
+          const eased = 1 - Math.pow(1 - t, 3);
+          camera.position.lerpVectors(start, target, eased);
+          controls.target.set(0, 0.02, 0);
+          controls.update();
+          if (t < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }
+
+      function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        const width = Math.max(1, Math.floor(rect.width));
+        const height = Math.max(1, Math.floor(rect.height));
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height, false);
+      }
+
+      function animate() {
+        controls.update();
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+      }
+    </script>
+  </body>
+</html>

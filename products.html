@@ -8,33 +8,54 @@
     <meta name="theme-color" content="#f6f8fb">
     <link rel="canonical" href="https://ulong.tech/products">
     <link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="/styles.css?v=20260518-3">
+    <link rel="stylesheet" href="/styles.css?v=20260518-8">
   </head>
-  <body>
+  <body class="products-redesign">
     <header class="site-header" data-elevate>
       <a class="brand" href="/" aria-label="Ulong Technology home" data-route="home">
         <span class="brand-mark">U</span>
         <span>Ulong Technology</span>
       </a>
       <nav class="nav-links" aria-label="Primary navigation">
-        <a href="/products" data-route="products" data-i18n="navSystems">Products</a>
-        <a href="/products" data-route="products" data-i18n="navCapability">Capability</a>
-        <a href="/trade" data-route="trade" data-i18n="navGlobal">Trade</a>
-        <a href="/contact" data-route="contact" data-i18n="navContact">Contact</a>
+        <a href="/products" data-i18n="navProducts">Products</a>
+        <a href="/#solutions" data-i18n="navSolutions">Solutions</a>
+        <a href="/#why" data-i18n="navWhy">Why Ulong</a>
+        <a href="/contact" data-i18n="navQuote">Request Quote</a>
       </nav>
       <div class="language-switcher" aria-label="Language">
         <a data-lang-link="en" href="/" aria-current="true">EN</a>
         <a data-lang-link="zh-hant" href="/zh-hant">繁</a>
-        <a data-lang-link="tr" href="/tr">TR</a>
-        <a data-lang-link="ms" href="/ms">MS</a>
       </div>
     </header>
 
-    <main class="page-main">
-      <section class="subpage-hero">
-        <p class="eyebrow" data-i18n="systemsLabel">Product Supply</p>
-        <h1 data-i18n="productsPageTitle">UAV platforms and component supply.</h1>
-        <p data-i18n="productsPageBody">A concise catalog for trade buyers, covering platform capability and common UAV components.</p>
+    <main class="product-page-main">
+      <section class="products-hero" aria-labelledby="products-title">
+        <div class="products-hero-copy">
+          <p class="eyebrow" data-i18n="productsHeroLabel">Featured Platform</p>
+          <h1 id="products-title" data-i18n="productsHeroTitle">BL60-160 VTOL UAV platform</h1>
+          <p data-i18n="productsHeroBody">A buyer-facing 3D review based on the extracted BL60-160 render set, with top, side, front, rear, and spin controls for web evaluation.</p>
+          <div class="product-spec-chips" aria-label="BL60-160 review highlights">
+            <span>Fixed-wing VTOL</span>
+            <span>Wide wing planform</span>
+            <span>Interactive model</span>
+          </div>
+          <div class="hero-actions">
+            <a class="button button-primary" href="/bl60-160" data-i18n="bl60Cta">Full 3D view</a>
+            <a class="button button-secondary" href="/assets/bl60-160/contact-sheet.jpg" target="_blank" rel="noreferrer" data-i18n="bl60Refs">View references</a>
+          </div>
+        </div>
+        <div class="platform-media platform-model product-hero-model" data-bl60-model>
+          <canvas id="bl60-product-canvas" aria-label="Interactive BL60-160 3D model"></canvas>
+          <div class="platform-model-status" data-bl60-status>Loading model</div>
+          <div class="platform-model-controls" aria-label="BL60-160 model controls" data-bl60-controls>
+            <button type="button" data-view="iso">ISO</button>
+            <button type="button" data-view="top">Top</button>
+            <button type="button" data-view="side">Side</button>
+            <button type="button" data-view="front">Front</button>
+            <button type="button" data-view="rear">Rear</button>
+            <button type="button" data-spin-toggle>Spin</button>
+          </div>
+        </div>
       </section>
 
       <section class="feature-grid product-overview" aria-label="Product pillars">
@@ -112,6 +133,24 @@
     </footer>
 
     <div class="toast" role="status" aria-live="polite" hidden data-toast></div>
-    <script src="/script.js?v=20260518-3" defer></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.165.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.165.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module">
+      import { initBL60Model } from "/assets/bl60-160/model-viewer.js?v=20260518-8";
+
+      initBL60Model({
+        canvas: document.querySelector("#bl60-product-canvas"),
+        status: document.querySelector("[data-bl60-status]"),
+        controlsRoot: document.querySelector("[data-bl60-controls]"),
+        compact: true
+      });
+    </script>
+    <script src="/script.js?v=20260518-8" defer></script>
   </body>
 </html>

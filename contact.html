@@ -3,55 +3,85 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ulong Technology Limited | Contact</title>
-    <meta name="description" content="Contact ULONG TECHNOLOGY LIMITED for UAV platform and component procurement discussions.">
-    <meta name="theme-color" content="#f6f8fb">
+    <title>Request Quote | UAV Components and Platforms — Ulong Technology</title>
+    <meta name="description" content="Request a structured UAV platform or component quote from Ulong Technology Limited. Share your product interest, quantity, timeline, and technical requirements.">
+    <meta name="theme-color" content="#0a1628">
     <link rel="canonical" href="https://ulong.tech/contact">
     <link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="/styles.css?v=20260518-3">
+    <link rel="stylesheet" href="/styles.css?v=20260518-8">
   </head>
-  <body>
-    <header class="site-header" data-elevate>
-      <a class="brand" href="/" aria-label="Ulong Technology home" data-route="home">
+  <body class="quote-page">
+    <header class="site-header dark-header" data-elevate>
+      <a class="brand" href="/" aria-label="Ulong Technology home">
         <span class="brand-mark">U</span>
         <span>Ulong Technology</span>
       </a>
       <nav class="nav-links" aria-label="Primary navigation">
-        <a href="/products" data-route="products" data-i18n="navSystems">Products</a>
-        <a href="/products" data-route="products" data-i18n="navCapability">Capability</a>
-        <a href="/trade" data-route="trade" data-i18n="navGlobal">Trade</a>
-        <a href="/contact" data-route="contact" data-i18n="navContact">Contact</a>
+        <a href="/products" data-i18n="navProducts">Products</a>
+        <a href="/#solutions" data-i18n="navSolutions">Solutions</a>
+        <a href="/#why" data-i18n="navWhy">Why Ulong</a>
+        <a href="/contact" data-i18n="navQuote">Request Quote</a>
       </nav>
       <div class="language-switcher" aria-label="Language">
         <a data-lang-link="en" href="/" aria-current="true">EN</a>
         <a data-lang-link="zh-hant" href="/zh-hant">繁</a>
-        <a data-lang-link="tr" href="/tr">TR</a>
-        <a data-lang-link="ms" href="/ms">MS</a>
       </div>
     </header>
 
-    <main class="page-main">
-      <section class="subpage-hero">
-        <p class="eyebrow" data-i18n="contactLabel">Contact</p>
-        <h1 data-i18n="contactPageTitle">Start a direct procurement conversation.</h1>
-        <p data-i18n="contactPageBody">Share the component category, target specification, quantity range, and preferred shipping terms.</p>
+    <main class="quote-layout">
+      <section class="quote-intro">
+        <p class="eyebrow" data-i18n="contactLabel">Request Quote</p>
+        <h1 data-i18n="contactPageTitle">Start with your requirements, not a generic price list.</h1>
+        <p data-i18n="contactPageBody">Tell us the product category, quantity range, delivery timeline, and technical questions. We will respond with a structured proposal path.</p>
+        <div class="next-steps">
+          <div><span>1</span><p data-i18n="processTwo">Specification review</p></div>
+          <div><span>2</span><p data-i18n="quoteStepTwo">Quote and document check</p></div>
+          <div><span>3</span><p data-i18n="processThree">Sample or shipment path</p></div>
+        </div>
       </section>
 
-      <section class="contact contact-page">
-        <div>
-          <p class="section-label" data-i18n="contactLabel">Contact</p>
-          <h2 data-i18n="contactTitle">Start a direct business conversation.</h2>
-          <p class="legal-name" data-i18n="legalEntity">Legal entity: ULONG TECHNOLOGY LIMITED</p>
-        </div>
-        <div class="contact-actions" aria-label="Contact options">
-          <a href="mailto:samtyl@126.com">
-            <span>Email</span>
-            <strong>samtyl@126.com</strong>
-          </a>
-          <button type="button" data-copy="samtyl">
-            <span>WeChat</span>
-            <strong>samtyl</strong>
-          </button>
+      <section class="quote-form-shell" aria-label="Request quote form">
+        <form class="quote-form" data-rfq-form>
+          <div class="field-row">
+            <label>
+              <span data-i18n="fieldFirstName">First name</span>
+              <input name="firstName" autocomplete="given-name" required>
+            </label>
+            <label>
+              <span data-i18n="fieldLastName">Last name</span>
+              <input name="lastName" autocomplete="family-name" required>
+            </label>
+          </div>
+          <label>
+            <span data-i18n="fieldCompany">Company name</span>
+            <input name="company" autocomplete="organization" required>
+          </label>
+          <label>
+            <span data-i18n="fieldEmail">Email</span>
+            <input type="email" name="email" autocomplete="email" required>
+          </label>
+          <label>
+            <span data-i18n="fieldInterest">Product interest</span>
+            <select name="interest" required>
+              <option value="">Select one</option>
+              <option>BL60-160 VTOL Platform</option>
+              <option>EO Gimbal</option>
+              <option>Motors / Propulsion</option>
+              <option>Batteries</option>
+              <option>Composite materials</option>
+              <option>Other UAV components</option>
+            </select>
+          </label>
+          <label>
+            <span data-i18n="fieldMessage">Requirements</span>
+            <textarea name="message" rows="6" data-i18n-placeholder="fieldMessagePlaceholder" placeholder="Tell us your quantity requirement, target price range, delivery timeline, and technical questions." required></textarea>
+          </label>
+          <button class="button button-primary" type="submit" data-i18n="quoteSubmit">Send Inquiry</button>
+          <p class="form-note" data-i18n="quoteNote">This preview form confirms the flow locally. Connect it to backend submission before production launch.</p>
+        </form>
+        <div class="quote-success" hidden data-rfq-success>
+          <h2 data-i18n="quoteSuccessTitle">Received.</h2>
+          <p data-i18n="quoteSuccessBody">We will review your requirements and prepare the next response path.</p>
         </div>
       </section>
     </main>
@@ -62,6 +92,6 @@
     </footer>
 
     <div class="toast" role="status" aria-live="polite" hidden data-toast></div>
-    <script src="/script.js?v=20260518-3" defer></script>
+    <script src="/script.js?v=20260518-8" defer></script>
   </body>
 </html>

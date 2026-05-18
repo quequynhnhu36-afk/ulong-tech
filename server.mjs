@@ -4,8 +4,11 @@ import { extname, join, normalize, sep } from "node:path";
 
 const root = process.cwd();
 const port = Number(process.env.PORT || 4173);
-const languagePrefixes = new Set(["zh-hant", "tr", "ms"]);
+const languagePrefixes = new Set(["zh-hant"]);
 const pageSlugs = new Set(["products", "trade", "contact"]);
+const customPages = new Map([
+  ["bl60-160", "bl60-160-3d.html"]
+]);
 
 const mime = {
   ".html": "text/html; charset=utf-8",
@@ -35,6 +38,7 @@ function resolveRequestPath(url = "/") {
 
   if (languagePrefixes.has(parts[0])) parts.shift();
   if (parts.length === 0) return join(root, "index.html");
+  if (customPages.has(parts[0])) return join(root, customPages.get(parts[0]));
   if (pageSlugs.has(parts[0])) return join(root, `${parts[0]}.html`);
 
   const relative = parts.length ? parts.join("/") : "index.html";

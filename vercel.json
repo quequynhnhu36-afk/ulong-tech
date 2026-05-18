@@ -21,6 +21,10 @@
       "destination": "/contact.html"
     },
     {
+      "source": "/bl60-160",
+      "destination": "/bl60-160-3d.html"
+    },
+    {
       "source": "/zh-hant",
       "destination": "/index.html"
     },
@@ -34,38 +38,6 @@
     },
     {
       "source": "/zh-hant/contact",
-      "destination": "/contact.html"
-    },
-    {
-      "source": "/tr",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/tr/products",
-      "destination": "/products.html"
-    },
-    {
-      "source": "/tr/trade",
-      "destination": "/trade.html"
-    },
-    {
-      "source": "/tr/contact",
-      "destination": "/contact.html"
-    },
-    {
-      "source": "/ms",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/ms/products",
-      "destination": "/products.html"
-    },
-    {
-      "source": "/ms/trade",
-      "destination": "/trade.html"
-    },
-    {
-      "source": "/ms/contact",
       "destination": "/contact.html"
     }
   ],
