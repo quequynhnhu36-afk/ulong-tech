@@ -47,16 +47,10 @@
 
       <section class="quote-form-shell" aria-label="Request quote form">
         <form class="quote-form" data-rfq-form>
-          <div class="field-row">
-            <label>
-              <span data-i18n="fieldFirstName">First name</span>
-              <input name="firstName" autocomplete="given-name" required>
-            </label>
-            <label>
-              <span data-i18n="fieldLastName">Last name</span>
-              <input name="lastName" autocomplete="family-name" required>
-            </label>
-          </div>
+          <label>
+            <span data-i18n="fieldContactName">Contact name</span>
+            <input name="contactName" autocomplete="name" required>
+          </label>
           <label>
             <span data-i18n="fieldCompany">Company name</span>
             <input name="company" autocomplete="organization" required>
@@ -68,13 +62,13 @@
           <label>
             <span data-i18n="fieldInterest">Product interest</span>
             <select name="interest" required>
-              <option value="">Select one</option>
-              <option>BL60-160 VTOL Platform</option>
-              <option>EO Gimbal</option>
-              <option>Motors / Propulsion</option>
-              <option>Batteries</option>
-              <option>Composite materials</option>
-              <option>Other UAV components</option>
+              <option value="" data-i18n="fieldInterestPlaceholder">Select one</option>
+              <option data-i18n="interestPlatform">BL60-160 VTOL Platform</option>
+              <option data-i18n="interestGimbal">EO Gimbal</option>
+              <option data-i18n="interestMotors">Motors / Propulsion</option>
+              <option data-i18n="interestBatteries">Batteries</option>
+              <option data-i18n="interestComposite">Composite materials</option>
+              <option data-i18n="interestOther">Other UAV components</option>
             </select>
           </label>
           <label>
@@ -97,6 +91,6 @@
     </footer>
 
     <div class="toast" role="status" aria-live="polite" hidden data-toast></div>
-    <script src="/script.js?v=20260518-13" defer></script>
+    <script src="/script.js?v=20260518-14" defer></script>
   </body>
 </html>
