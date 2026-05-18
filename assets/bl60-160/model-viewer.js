@@ -80,17 +80,17 @@ function createMaterials() {
   const carbonTexture = createCarbonTexture();
   return {
     body: new THREE.MeshPhysicalMaterial({
-      color: 0xd4dde4,
-      roughness: 0.42,
-      metalness: 0.01,
-      clearcoat: 0.22,
-      clearcoatRoughness: 0.55
+      color: 0xb8c2c9,
+      roughness: 0.34,
+      metalness: 0.16,
+      clearcoat: 0.34,
+      clearcoatRoughness: 0.34
     }),
     underside: new THREE.MeshPhysicalMaterial({
-      color: 0xc1ccd5,
-      roughness: 0.52,
-      metalness: 0.02,
-      clearcoat: 0.12
+      color: 0xa9b4bc,
+      roughness: 0.44,
+      metalness: 0.12,
+      clearcoat: 0.18
     }),
     carbon: new THREE.MeshStandardMaterial({
       color: 0x0c0d0f,
@@ -104,9 +104,9 @@ function createMaterials() {
       metalness: 0.18
     }),
     metal: new THREE.MeshStandardMaterial({
-      color: 0xa8b0b6,
-      roughness: 0.36,
-      metalness: 0.24
+      color: 0x7f8a93,
+      roughness: 0.34,
+      metalness: 0.34
     }),
     line: new THREE.LineBasicMaterial({
       color: 0x6d7884,
@@ -397,13 +397,9 @@ function makeMotorAssembly(side, x, zAbs, mat) {
   spinner.castShadow = true;
   group.add(spinner);
 
-  const prop = new THREE.Group();
-  const bladeA = makePropBlade(mat.carbon);
-  const bladeB = makePropBlade(mat.carbon);
-  bladeB.rotation.y = Math.PI / 2;
-  prop.add(bladeA, bladeB);
+  const prop = makePropBlade(mat.carbon);
   prop.position.set(x, 0.86, z);
-  prop.rotation.y = side > 0 ? Math.PI * 0.03 : -Math.PI * 0.03;
+  prop.rotation.y = side > 0 ? Math.PI * 0.02 : -Math.PI * 0.02;
   group.add(prop);
 
   const mount = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.1, 0.45), mat.metal);
@@ -417,16 +413,20 @@ function makeMotorAssembly(side, x, zAbs, mat) {
 
 function makePropBlade(material) {
   const geometry = createPrismGeometry([
-    [-0.06, 0.04],
-    [0.08, 0.06],
-    [1.12, 0.034],
-    [1.42, 0],
-    [1.12, -0.034],
-    [0.08, -0.06],
-    [-0.06, -0.04]
+    [-1.52, 0],
+    [-1.28, 0.055],
+    [-0.14, 0.035],
+    [0, 0.02],
+    [0.14, 0.035],
+    [1.28, 0.055],
+    [1.52, 0],
+    [1.28, -0.055],
+    [0.14, -0.035],
+    [0, -0.02],
+    [-0.14, -0.035],
+    [-1.28, -0.055]
   ], 0.018, 0.036);
   const blade = new THREE.Mesh(geometry, material);
-  blade.rotation.z = -Math.PI / 2;
   blade.castShadow = true;
   return blade;
 }

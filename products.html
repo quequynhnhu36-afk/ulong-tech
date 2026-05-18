@@ -3,23 +3,23 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ulong Technology Limited | Products</title>
+    <title>ULONG TECH | Products</title>
     <meta name="description" content="UAV platform capability and export-oriented component supply from ULONG TECHNOLOGY LIMITED.">
     <meta name="theme-color" content="#f6f8fb">
     <link rel="canonical" href="https://ulong.tech/products">
     <link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="/styles.css?v=20260518-8">
+    <link rel="stylesheet" href="/styles.css?v=20260518-13">
   </head>
   <body class="products-redesign">
     <header class="site-header" data-elevate>
-      <a class="brand" href="/" aria-label="Ulong Technology home" data-route="home">
+      <a class="brand" href="/" aria-label="ULONG TECH home" data-route="home">
         <span class="brand-mark">U</span>
-        <span>Ulong Technology</span>
+        <span>ULONG TECH</span>
       </a>
       <nav class="nav-links" aria-label="Primary navigation">
         <a href="/products" data-i18n="navProducts">Products</a>
         <a href="/#solutions" data-i18n="navSolutions">Solutions</a>
-        <a href="/#why" data-i18n="navWhy">Why Ulong</a>
+        <a href="/trade" data-i18n="navWhy">Why Ulong</a>
         <a href="/contact" data-i18n="navQuote">Request Quote</a>
       </nav>
       <div class="language-switcher" aria-label="Language">
@@ -33,7 +33,7 @@
         <div class="products-hero-copy">
           <p class="eyebrow" data-i18n="productsHeroLabel">Featured Platform</p>
           <h1 id="products-title" data-i18n="productsHeroTitle">BL60-160 VTOL UAV platform</h1>
-          <p data-i18n="productsHeroBody">A buyer-facing 3D review based on the extracted BL60-160 render set, with top, side, front, rear, and spin controls for web evaluation.</p>
+          <p data-i18n="productsHeroBody">A buyer-facing multi-view 3D product animation built from the extracted BL60-160 render set, with top, side, front, rear, and spin controls for web evaluation.</p>
           <div class="product-spec-chips" aria-label="BL60-160 review highlights">
             <span>Fixed-wing VTOL</span>
             <span>Wide wing planform</span>
@@ -41,7 +41,6 @@
           </div>
           <div class="hero-actions">
             <a class="button button-primary" href="/bl60-160" data-i18n="bl60Cta">Full 3D view</a>
-            <a class="button button-secondary" href="/assets/bl60-160/contact-sheet.jpg" target="_blank" rel="noreferrer" data-i18n="bl60Refs">View references</a>
           </div>
         </div>
         <div class="platform-media platform-model product-hero-model" data-bl60-model>
@@ -58,12 +57,16 @@
         </div>
       </section>
 
-      <section class="feature-grid product-overview" aria-label="Product pillars">
-        <article>
+      <section id="pillars" class="product-overview" aria-label="Product pillars">
+        <article class="pillar-card pillar-card-platform">
           <div class="pillar-head">
             <span>01</span>
-            <div class="pillar-icon icon-platform" aria-hidden="true"></div>
+            <strong data-i18n="pillarOneKicker">Platform sourcing</strong>
           </div>
+          <figure class="technical-visual visual-media">
+            <img src="/assets/product-pillars/platform-vtol.jpg" alt="Premium silver-gray BL60-160 style VTOL UAV render on a dark glass card" loading="lazy">
+            <figcaption data-i18n="pillarOneVisual">Airframe reference, assembly matching, export-ready documentation.</figcaption>
+          </figure>
           <h3 data-i18n="pillarOneTitle">Platform Base</h3>
           <p data-i18n="pillarOneBody">Airframe thinking, assembly support, and component matching for UAV programs.</p>
           <div class="pillar-tags">
@@ -72,11 +75,14 @@
             <span data-i18n="pillarOneTagC">Matching</span>
           </div>
         </article>
-        <article>
+        <article class="pillar-card">
           <div class="pillar-head">
             <span>02</span>
-            <div class="pillar-icon icon-components" aria-hidden="true"></div>
+            <strong data-i18n="pillarTwoKicker">Component matrix</strong>
           </div>
+          <figure class="technical-visual visual-media">
+            <img src="/assets/product-pillars/component-exploded.jpg" alt="Premium exploded UAV component render with EO gimbal motor battery and composite panel" loading="lazy">
+          </figure>
           <h3 data-i18n="pillarTwoTitle">Component Supply</h3>
           <p data-i18n="pillarTwoBody">EO gimbals, motors, composite materials, molds, and high-power lithium batteries.</p>
           <div class="pillar-tags">
@@ -85,11 +91,14 @@
             <span data-i18n="pillarTwoTagC">Batteries</span>
           </div>
         </article>
-        <article>
+        <article class="pillar-card">
           <div class="pillar-head">
             <span>03</span>
-            <div class="pillar-icon icon-trade" aria-hidden="true"></div>
+            <strong data-i18n="pillarThreeKicker">Trade workflow</strong>
           </div>
+          <figure class="technical-visual visual-media">
+            <img src="/assets/product-pillars/trade-logistics.jpg" alt="Premium global UAV component trade and logistics render with route arcs and procurement panels" loading="lazy">
+          </figure>
           <h3 data-i18n="pillarThreeTitle">Trade Coordination</h3>
           <p data-i18n="pillarThreeBody">Documentation, packing, and partner communication for global trade buyers.</p>
           <div class="pillar-tags">
@@ -98,31 +107,75 @@
             <span data-i18n="pillarThreeTagC">Logistics</span>
           </div>
         </article>
+        <article class="pillar-card overview-model-card">
+          <div class="pillar-head">
+            <span>04</span>
+            <strong data-i18n="pillarFourKicker">Web 3D review</strong>
+          </div>
+          <div class="overview-model-shell">
+            <canvas id="bl60-overview-canvas" aria-label="Interactive BL60-160 product preview"></canvas>
+            <div class="overview-model-controls" aria-label="Mini BL60-160 model controls" data-bl60-overview-controls>
+              <button type="button" data-view="iso">ISO</button>
+              <button type="button" data-view="top">Top</button>
+              <button type="button" data-view="side">Side</button>
+              <button type="button" data-spin-toggle>Spin</button>
+            </div>
+          </div>
+          <h3 data-i18n="pillarFourTitle">Interactive product review</h3>
+          <p data-i18n="pillarFourBody">Buyer-facing 3D web review for platform evaluation, visual confirmation, and inquiry alignment.</p>
+          <div class="pillar-tags">
+            <span data-i18n="pillarFourTagA">3D review</span>
+            <span data-i18n="pillarFourTagB">Web-ready</span>
+            <span data-i18n="pillarFourTagC">Buyer demo</span>
+          </div>
+        </article>
       </section>
 
-      <section id="components" class="section capability">
-        <div class="section-label" data-i18n="capabilityLabel">Components</div>
-        <div class="product-catalog">
-          <article>
-            <h2 data-i18n="capOneTitle">Single EO gimbal</h2>
-            <p data-i18n="capOneBody">Export-oriented optical gimbal component for procurement programs.</p>
-          </article>
-          <article>
-            <h2 data-i18n="capTwoTitle">Motors</h2>
-            <p data-i18n="capTwoBody">General-purpose UAV motor supply with model matching handled by inquiry.</p>
-          </article>
-          <article>
-            <h2 data-i18n="capThreeTitle">Composite fiber fabric</h2>
-            <p data-i18n="capThreeBody">Lightweight structural material for airframe and component manufacturing.</p>
-          </article>
-          <article>
-            <h2 data-i18n="capFourTitle">Molds & tooling</h2>
-            <p data-i18n="capFourBody">Mold and tooling support for repeatable composite part production.</p>
-          </article>
-          <article>
-            <h2 data-i18n="capFiveTitle">High-power lithium batteries</h2>
-            <p data-i18n="capFiveBody">Battery supply for UAV programs, with shipping details and order documentation confirmed before dispatch.</p>
-          </article>
+      <section id="components" class="component-spec-sheet" aria-labelledby="components-title">
+        <div class="component-spec-header">
+          <div>
+            <p class="section-label" data-i18n="capabilityLabel">Components</p>
+            <h2 id="components-title" data-i18n="capabilityTitle">Core materials for UAV programs.</h2>
+          </div>
+          <p data-i18n="capabilityBody">A focused component catalog covering commonly requested materials, with specifications and supply details confirmed during inquiry.</p>
+        </div>
+        <div class="component-spec-table-wrap" role="region" aria-label="Condensed component specification table">
+          <table class="component-spec-table">
+            <thead>
+              <tr>
+                <th scope="col" data-i18n="componentSpecHeaderItem">Component</th>
+                <th scope="col" data-i18n="componentSpecHeaderScope">Supply scope</th>
+                <th scope="col" data-i18n="componentSpecHeaderOutput">Inquiry output</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" data-i18n="capOneTitle">Single EO gimbal</th>
+                <td data-i18n="capOneBody">Export-oriented optical gimbal component for procurement programs.</td>
+                <td data-i18n="componentSpecOneOutput">Model match, payload interface, sample path</td>
+              </tr>
+              <tr>
+                <th scope="row" data-i18n="capTwoTitle">Motors</th>
+                <td data-i18n="capTwoBody">General-purpose UAV motor supply with model matching handled by inquiry.</td>
+                <td data-i18n="componentSpecTwoOutput">Power range, thrust target, compatible props</td>
+              </tr>
+              <tr>
+                <th scope="row" data-i18n="capThreeTitle">Composite fiber fabric</th>
+                <td data-i18n="capThreeBody">Lightweight structural material for airframe and component manufacturing.</td>
+                <td data-i18n="componentSpecThreeOutput">Weave, weight, roll format, packing note</td>
+              </tr>
+              <tr>
+                <th scope="row" data-i18n="capFourTitle">Molds & tooling</th>
+                <td data-i18n="capFourBody">Mold and tooling support for repeatable composite part production.</td>
+                <td data-i18n="componentSpecFourOutput">Tooling scope, drawing review, lead-time path</td>
+              </tr>
+              <tr>
+                <th scope="row" data-i18n="capFiveTitle">High-power lithium batteries</th>
+                <td data-i18n="capFiveBody">Battery supply for UAV programs, with shipping details and order documentation confirmed before dispatch.</td>
+                <td data-i18n="componentSpecFiveOutput">Voltage, capacity, packaging and export checks</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
     </main>
@@ -142,15 +195,19 @@
       }
     </script>
     <script type="module">
-      import { initBL60Model } from "/assets/bl60-160/model-viewer.js?v=20260518-8";
+      import { initBL60ReferenceViewer } from "/assets/bl60-160/reference-viewer.js?v=20260518-12";
 
-      initBL60Model({
+      initBL60ReferenceViewer({
         canvas: document.querySelector("#bl60-product-canvas"),
         status: document.querySelector("[data-bl60-status]"),
-        controlsRoot: document.querySelector("[data-bl60-controls]"),
-        compact: true
+        controlsRoot: document.querySelector("[data-bl60-controls]")
+      });
+
+      initBL60ReferenceViewer({
+        canvas: document.querySelector("#bl60-overview-canvas"),
+        controlsRoot: document.querySelector("[data-bl60-overview-controls]")
       });
     </script>
-    <script src="/script.js?v=20260518-8" defer></script>
+    <script src="/script.js?v=20260518-13" defer></script>
   </body>
 </html>
